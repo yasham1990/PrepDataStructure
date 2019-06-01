@@ -2,7 +2,7 @@
 //S(O): O(max(m,n))
 
 public class AddTwoNumbers {
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    /*public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         ListNode dummy=new ListNode(0);
         ListNode p=l1;
         ListNode q=l2;
@@ -28,14 +28,51 @@ public class AddTwoNumbers {
         }
         return dummy.next;
 
-    }
+    }*/
 
-    class ListNode{
+    class SinglyLinkedListNode{
         int val;
-        ListNode next=null;
-        ListNode(int val){
+        SinglyLinkedListNode next=null;
+        SinglyLinkedListNode(int val){
             this.val=val;
         }
 
     }
+
+    public SinglyLinkedListNode addTwoNumbers(SinglyLinkedListNode l_a, SinglyLinkedListNode l_b) {
+        if(l_a==null)
+            return l_b;
+        if(l_b==null)
+            return l_a;
+        SinglyLinkedListNode head=new SinglyLinkedListNode(0);
+        SinglyLinkedListNode cur=head;
+        int carry=-1;
+        while(l_a!=null && l_b!=null){
+            int val=(l_a.val+l_b.val)%10;
+            carry=(l_a.val+l_b.val)/10;
+            l_a=l_a.next;
+            l_b=l_b.next;
+            cur=new SinglyLinkedListNode(val);
+            cur=cur.next;
+        }
+        while(l_a!=null){
+            int val=(l_a.val+carry)%10;
+            carry=(l_a.val+carry)/10;
+            l_a=l_a.next;
+            cur=new SinglyLinkedListNode(val);
+            cur=cur.next;
+        }
+        while(l_b!=null){
+            int val=(l_b.val+carry)%10;
+            carry=(l_b.val+carry)/10;
+            l_b=l_b.next;
+            cur=new SinglyLinkedListNode(val);
+            cur=cur.next;
+        }
+        if(carry!=-1 && carry!=0)
+            cur=new SinglyLinkedListNode(carry);
+        return head.next;
+
+    }
+
 }
