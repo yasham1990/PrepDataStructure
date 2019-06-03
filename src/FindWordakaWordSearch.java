@@ -1,4 +1,4 @@
-public class FindWord {
+public class FindWordakaWordSearch {
     public boolean exist(char[][] board, String word) {
         if(board==null || word==null){
             return false;

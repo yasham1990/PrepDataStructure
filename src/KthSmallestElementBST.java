@@ -21,7 +21,8 @@ S(O) : O(H+k), the same as for time complexity, O(N+k) in the worst case, and O(
             curNode=stack.pop();
             if(--k==0)
                 return curNode.val;
-            curNode=curNode.right;
+            if(curNode.right!=null)
+                curNode=curNode.right;
 
         }
         return -1;
