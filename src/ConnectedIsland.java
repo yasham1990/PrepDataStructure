@@ -2,8 +2,6 @@ import java.util.List;
 
 public class ConnectedIsland {
 
-
-
     int zombieCluster(List<String> zombies) {
         int result=0;
         boolean[] visited=new boolean[zombies.size()];

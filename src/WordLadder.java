@@ -51,7 +51,7 @@ public class WordLadder {
     }
 
 
-    String[] string_transformation(String[] words, String start, String stop) {
+   /* String[] string_transformation(String[] words, String start, String stop) {
         int l=beginWord.length();
         Map<String, List<String>> map=new HashMap<>();
 
@@ -82,7 +82,7 @@ public class WordLadder {
                 String word = curWord.substring(0, i) + '*' + curWord.substring(i + 1, l);
                 if(map.containsKey(word)) {
                     for (String adWord : map.get(word)) {
-                        if (adWord.equals(stop\))
+                        if (adWord.equals(stop))
                             return level + 1;
 
                         if (!visited.containsKey(adWord)){
@@ -98,7 +98,7 @@ public class WordLadder {
 
 
     }
-
+*/
     boolean only_one_char_difference(int len, String str1, String str2)    {
         int difference = 0;
         for (int i = 0; i < len; i++)
