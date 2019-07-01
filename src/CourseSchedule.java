@@ -5,7 +5,7 @@ import java.util.Stack;
 
 public class CourseSchedule {
 
-    private static List<Integer>[] adList=null;
+    /*private static List<Integer>[] adList=null;
 
     List<Integer> course_schedule(int n, List<List<Integer>> prerequisites){
         adList=new LinkedList[n];
@@ -60,5 +60,48 @@ public class CourseSchedule {
 
     public static void main(String[] args){
         CourseSchedule courseSchedule=new CourseSchedule();
+    }*/
+
+    List<Integer>[] adj=null;
+
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        adj=new LinkedList[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            adj[i]=new LinkedList();
+        }
+        for (int i = 0; i < prerequisites.length; i++) {
+            adj[prerequisites[i][1]].add(prerequisites[i][0]);
+        }
+
+        int[] visited=new int[numCourses];
+        Stack<Integer> stack=new Stack();
+
+        for (int i = 0; i < numCourses; i++) {
+            if(helper(i,visited, stack))
+                return new int[]{};
+        }
+        int[] result=new int[stack.size()];
+        int i=0;
+        while(!stack.isEmpty()){
+            result[i]=stack.pop();
+            i++;
+        }
+        return result;
+
+    }
+
+    boolean helper(int index, int[] visited, Stack<Integer> stack){
+        if(visited[index]==2 || index == visited.length )
+            return false;
+        if(visited[index]==1)
+            return true;
+        visited[index]=1;
+        for(Integer curIndex:adj[index]){
+            if(helper(curIndex,visited, stack))
+                return true;
+        }
+        visited[index]=2;
+        stack.push(index);
+        return false;
     }
 }

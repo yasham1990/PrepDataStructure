@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class CountBasins {
 
@@ -67,3 +64,82 @@ public class CountBasins {
     }
 
 }
+
+class LRUCache {
+
+    Node head=null;
+    Node end=null;
+    Map<Integer, Node> map=new HashMap();;
+    int capacity=0;
+
+    public LRUCache(int capacity) {
+        capacity=this.capacity;
+    }
+
+    public int get(int key) {
+        if(map.containsKey(key)){
+            Node node=map.get(key);
+            remove(node);
+            setHead(node);
+            return node.val;
+        }
+        return -1;
+    }
+
+    public void put(int key, int value) {
+        System.out.println("end is "+end.key);
+        System.out.println("map is "+map.size());
+        if(map.containsKey(key)){
+            Node node=map.get(key);
+            node.val=value;
+            remove(node);
+            setHead(node);
+        }else{
+            Node node=new Node(key,value);
+            if(map.size()>=capacity){
+                Node n=map.get(end.key);
+                map.remove(end.key);
+                remove(n);
+            }
+            setHead(node);
+            map.put(key,node);
+        }
+    }
+
+    void remove(Node node){
+        if(node.prev==null)
+            head=node.next;
+        else
+            node.prev.next=node.next;
+
+        if(node.next==null)
+            end=node.prev;
+        else
+            node.next.prev=node.prev;
+
+    }
+
+    void setHead(Node n){
+        n.next=head;
+        n.prev=null;
+        if(head!=null)
+            head.prev=n;
+        head=n;
+        if(end==null)
+            end=head;
+
+
+    }
+
+    class Node{
+        int val;
+        int key;
+        Node next=null;
+        Node prev=null;
+        Node(int key, int val){
+            this.key=key;
+            this.val=val;
+        }
+    }
+}
+

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -65,6 +66,35 @@ public class WordBreak {
             }
         }
         return dp[s.length()];
+    }
+
+    static int m =  (int) 1E9 + 7;
+
+    public static int wordBreakCount(List<String> dictionary, String txt) {
+        Set<String> set = new HashSet<>(dictionary);
+        int[] DP = new int[txt.length()+1];
+        wordBrkCountDP(set, txt, DP);
+        return DP[0];
+    }
+
+    private static void wordBrkCountDP(Set<String> set, String txt, int[] DP){
+        DP[txt.length()] = 1;
+
+        for(int s=txt.length()-1; s >= 0; s--){
+            for (int e=s; e<txt.length(); e++) {
+                if(set.contains(txt.substring(s, e+1)))
+                    DP[s] = (DP[s] + DP[e+1]) % m;
+            }
+        }
+    }
+
+    public static void main(String[] args){
+        WordBreak wordBreak=new WordBreak();
+        List<String> list=new ArrayList<>();
+        list.add("hello");
+        list.add("world1");
+        int result=wordBreak.wordBreakCount(list,"helloworld");
+        System.out.println(result);
     }
 
 
